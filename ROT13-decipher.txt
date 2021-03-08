@@ -1,0 +1,30 @@
+function rot13(str) {
+
+  let answer = [];
+
+  var letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
+
+  let regex = /[^A-Z]/g
+
+for (let i =0; i<str.length; i++){
+
+  if (str[i].match(regex)){
+answer.push(str[i])
+  }
+  else {
+    let index =letters.indexOf(str[i])
+    index = index + 13;
+ 
+    if (index > 25){
+      index = index - 26
+     
+    }
+ answer.push(letters[index])
+  }
+
+  
+}
+return answer.join('')
+}
+
+rot13("SERR PBQR PNZC");

@@ -1,0 +1,130 @@
+function checkCashRegister(price, cash, cid) {
+  var change = cash - price;
+ 
+ const allBills = [0.01,0.05,0.1,0.25,1,5,10,20,100]
+ var bills = []
+
+var counter = 0;
+var answer = [];
+var available = []
+
+
+
+
+for (let i =0; i<allBills.length; i++){
+  if (change >= allBills[i]){
+ 
+    bills.push(allBills[i])
+    available.push(cid[i][1])
+   
+  }
+}
+var i = bills.length-1
+
+
+
+
+
+
+
+
+
+
+function roundChange(initial){
+  var final
+  final = Math.round(initial*100)/100
+  return final
+ }
+
+function howMany(change, bills){
+change = roundChange(change)
+
+
+
+
+if (change - bills[i] == 0){
+  change = change - bills[i]
+  counter++
+  answer.push([[counter,bills[i]],[change]])
+ 
+  //console.log('first if')
+  counter =0
+}
+
+else if (change > bills[i] && bills[i] <= available[i]){
+  change = change - bills[i]
+  available[i] -= bills[i]
+  counter ++
+ 
+
+  howMany(change,bills)
+}
+  else if (change < bills[i] || available[i] <= 0){
+    if (counter> 0){
+    answer.push([[counter,bills[i]],[change]]);
+    }
+    counter=0
+    i--
+    //console.log('third if')
+   
+    howMany(change,bills)
+  }
+
+  
+available[0] = (Math.round(available[0]*10)/10)
+
+var availableValue;
+availableValue = (available.reduce((accumulator, currentValue) => accumulator + currentValue))
+  return answer ,availableValue
+  
+
+}
+var availableValue;
+answer, availableValue = howMany(change,bills)
+
+
+
+
+if (answer[answer.length-1][1] != 0){
+  answer[0] = "INSUFFICIENT_FUNDS"
+  answer.splice(1)
+}
+
+
+
+
+
+var finalAnswer = []
+var dict = {}
+var status
+
+for (let i =0; i < cid.length; i++){
+   
+   dict[allBills[i]] = cid[i][0]
+  
+}
+
+if (answer[0] !== 'INSUFFICIENT_FUNDS' && availableValue ==0){
+  finalAnswer = cid
+  status = 'CLOSED'
+}
+
+else if (answer[0] !== 'INSUFFICIENT_FUNDS'){
+
+status = "OPEN"
+for (let i =0; i<answer.length; i++){
+  finalAnswer[i] = [(dict[answer[i][0][1]]),(answer[i][0][0]*answer[i][0][1])]
+}
+
+}
+else if (answer[0] == 'INSUFFICIENT_FUNDS'){
+  finalAnswer=[];
+  status = 'INSUFFICIENT_FUNDS'
+}
+return {
+  'status' : status,
+  'change' : finalAnswer
+}
+}
+
+checkCashRegister(19.5, 20, [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])

@@ -1,0 +1,59 @@
+function convertToRoman(num) {
+
+var valuesToCheck = [500,100,50,10,5,1]
+
+var fours = ['CD', 'XL', 'IV']
+var nines = ['CM', 'XC','IX' ]  
+ var final = [];
+  var digit = num.toString()
+    if (digit.length==4){
+    final.unshift("M".repeat(digit[0]))
+  }
+  if (digit.length == 4){
+    digit=digit.slice(1)
+    
+  }
+ 
+
+  
+
+  var j = 3-digit.length;
+
+
+  
+ 
+
+for (let i =0; i<digit.length; i++){
+  console.log(i)
+  if (digit[i] == 0){
+    
+  }
+  else if (digit[i] == 4){
+    final.push(fours[j])
+    
+  }
+  else if (digit[i] == 9){
+    final.push(nines[j])
+    
+  }
+  else if (digit[i] == 5){
+    final.push(fours[j][1])
+    
+  }
+
+  else if (digit[i] < 4){
+    final.push( nines[j][0].repeat(digit[i]))
+    
+  }
+  else if (digit[i] > 5){
+    final.push( fours[j][1] + nines[j][0].repeat((digit[i])-5))
+  }
+  j++
+}
+return final.join('')
+}
+
+
+
+
+convertToRoman(100);

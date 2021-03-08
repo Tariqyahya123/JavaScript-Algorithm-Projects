@@ -1,0 +1,15 @@
+function telephoneCheck(str) {
+  let regex = /(^[0-9]{3}-[0-9]{3}-[0-9]{4})|^([(][0-9]{3}[)][ ]{0,1}[0-9]{3}-[0-9]{4})|^[0-9]{3} *[0-9]{3} *[0-9]{4}$|(^[1][ (]*[0-9]{3}[ )-]*[0-9]{3}[ -]*[0-9]{4})/
+
+if (str.match(/1 [0-9]{3}[)]/)){
+  return false
+}
+
+if (str.match(regex)){
+  return true;
+}
+else {
+  return false;
+}
+}
+telephoneCheck("5555555555");
